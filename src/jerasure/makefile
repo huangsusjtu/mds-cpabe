@@ -1,0 +1,34 @@
+# Makefile
+
+
+CC = gcc  
+CFLAGS = -O3 -g
+
+OBJS =	galois.o jerasure.o cauchy.o 
+#all: $(OBJS) libJerasure.so libJerasure.so.0
+all: $(OBJS)
+	ar -cqs libJerasure.a $(OBJS)
+	mv ./libJerasure.a ../../lib
+
+clean:
+	rm -f core *.o $(all) 
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+
+#libJerasure.so: ./libJerasure.so.0
+#	ln -sf libJerasure.so.0 libJerasure.so
+
+#libJerasure.so.0:  $(OBJS)
+#	$(CC) -shared -Wl,-soname,libJerasure.so.0 -o ./libJerasure.so.0  $(OBJS)
+
+
+#%.o: %.c
+#	$(CC) $(CFLAGS) -fPIC -c $<
+
+
+galois.o: galois.h
+jerasure.o: jerasure.h galois.h
+cauchy.o: jerasure.h galois.h cauchy.h
+

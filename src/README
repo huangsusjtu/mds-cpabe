@@ -1,0 +1,48 @@
+Here are the file format of key files
+
+
+system attributes file contains all the attributes in system, like string
+####################################
+# attr attr attr ....              #
+####################################
+
+system public key contains the pairing, group, and publickey of attributes in the form of binary:
+#################################################################################
+# g1 g2 gt Yt G2beta \0 vec_size \0 (T,Version) (T,Version) ... (T,Version) \0  #
+#################################################################################
+
+
+secret key file contains the secret key of attributes, in the form of binary
+####################################################
+# tau beta \0 vec_size \0 ver ver ... ver \0       #
+####################################################
+
+
+
+user's attribute set is in the form of a file like this:      the file is 'usename'
+####################################
+# n attr attr attr attr ... attr   #
+####################################
+
+user's attributes secret key is in the form of: 				the filename is 'username.sk'
+#####################################
+# D1 D2 \0 vec_size \0 Di Di ... Di #
+#####################################
+
+
+the form of file policy,  the filename is "*.attr"
+######################################################################
+# num num_attr                                                       #
+# n k  n k    ....    n k                                            #
+# attr attr attr   .....  attr                                       #
+######################################################################
+
+Ciphertext form:              the file name is "*.cipher"
+######################################################################
+# gate_num  leaf_num  (n k)  (n k) ....   (n k)                      #
+# (attr_id c1 c2 c3) ........  (attr_id c1 c2 c3)                    #
+# encrypted data                                                     #
+######################################################################
+
+
+

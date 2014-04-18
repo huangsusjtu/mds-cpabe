@@ -1,39 +1,31 @@
-CC   = g++
-LINK = g++
 
 
-LFLAGS        = -g -Wall 
 INCPATH       = 	-I/usr/include/glib-2.0 -I/usr/lib/i386-linux-gnu/glib-2.0/include  \
 					 -I/usr/include/pbc -I/usr/local/include/pbc \
+					 -I../include/
 
+LFLAGS        = -g -Wall
 
-#LIBS          = -L/usr/lib/i386-linux-gnu -lQtGui -lQtCore -lpthread -L/usr/local/lib -lpcap
-LIBS = -O3 -Wall \
-	-lglib-2.0   \
-	-Wl,-rpath /usr/local/lib -lpbc \
-	-lcrypto -lgmp 
+all: pre
+	make -C ./setup
+	make -C ./keygen
+	make -C ./encryption
 
-SOURCES       =	sys_init.cpp keygen.cpp
-OBJ           = $(SOURCES:.cpp=.o)
-TARGETS        =  setup keygen
+pre:
+	make -C ./jerasure	
 
-all: $(TARGETS) $(OBJ)
 	
-setup: sys_init.o
-	$(LINK) -o $@ $^ $(LIBS)
+	
 
-keygen: keygen.o
-	$(LINK) -o $@ $^ $(LIBS)
-
-
-$(OBJ): %.o: %.cpp
-	$(CC)  -c $< $(INCPATH) $(LFLAGS) -o $@
-
-install:
-	@echo "nothing to do!"
-
-
-.PHONY:clean
+.PHONY:clean 
 clean:
-	rm -f $(OBJ) $(TERGET)
+	make -C ./setup clean
+	make -C ./keygen clean
+	make -C ./jerasure clean
+	make -C ./encryption clean
+	rm -f *~ 
 	
+
+	
+
+
