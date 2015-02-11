@@ -1,10 +1,3 @@
-/**
-
-
- branch hs
-**/
-
-
 #include <cstdio>
 #include <cassert>
 #include <cstring>
